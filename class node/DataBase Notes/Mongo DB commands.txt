@@ -1,0 +1,65 @@
+*mongosh
+
+*db
+
+*show dbs
+
+*show collections
+
+*db.users.find()  - (list out tables)
+
+*db.users.insertOne({name : "Shankar",age : 28,
+ place : "coimbatore", address : 
+{street : "1st_street", colony :
+ "saibaba_colony", pincode : 641604}})
+
+*db.users.insertMany([{name : "manoj",age : 21},
+
+{name : "mouli",age : 24},
+{name : "Baskar",age : 20},
+{name : "Banu",age : 24}])
+
+*db.users.find().limit(2)
+
+*db.users.find().limit(3)
+
+*db.users.find().sort({age:1})
+
+*db.users.find().sort({age:-1})
+
+*db.users.find().sort({name:1})
+
+
+*db.users.find().skip(2).limit(2)
+[
+  { _id: ObjectId("63ec5c0f40035351639d8f65"), name: 'priya' },
+  {
+    _id: ObjectId("63ec5c9940035351639d8f66"),
+    name: 'Hari',
+    job: 'Hr',
+    salary: 25000,
+    company: 'SCM'
+  }
+]
+
+*db.users.find().sort({age :1})
+
+*db.users.find().sort({age :-1})
+
+*db.users.find({name : "Baskar"})
+
+*db.users.find({name :{$ne:"mouli"}})********$ne = not equal
+
+*db.users.find({name :{$eq:"mouli"}})*******$eq = equal to
+
+*db.users.find({age :{$gte:24}})*************$gte = greater then
+
+*db.users.find({age :{$lte:21}})************$lte = less then
+
+*db.users.find({age :{$exists:false}})********$exists:boolian = to check exist or not
+
+*db.users.updateOne({'_id': ObjectId("63ecd84f51a96e5820dedb6b")},{$set:{'city':'attur'}})
+
+*db.users.updateOne({'_id': ObjectId("63ecd84f51a96e5820dedb6b")},{$rename:{'city':'city1'}})
+
+*db.task.find({}).forEach((e)=>{db.task.deleteMany({_id:{$gt:e._id},product_price:e.product_price})})

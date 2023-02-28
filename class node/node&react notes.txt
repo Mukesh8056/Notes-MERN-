@@ -1,0 +1,20 @@
+
+MY SQL : step by step program:
+
+https://www.tutsmake.com/first-crud-node-express-js-mysql-example/
+
+MY SQL : step by step program:
+
+https://medium.com/@rahulguptalive/create-crud-apis-in-nodejs-express-and-mysql-abda4dfc2d6
+
+MANGO DB : step by step program:
+
+https://www.bezkoder.com/node-express-mongodb-crud-rest-api/
+
+NODE & EXPRESS ONLY 1:
+
+https://medium.com/@indrasenkumar715/node-js-api-development-using-express-b592dd895d7f
+
+NODE & EXPRESS ONLY 2:
+
+https://www.kindsonthegenius.com/nodejs/rest-api/

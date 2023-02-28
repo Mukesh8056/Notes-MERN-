@@ -1,0 +1,169 @@
+*mongosh
+
+*db
+
+*show dbs
+
+*show collections
+
+*db.users.find()  - (list out tables)
+
+*db.users.insertOne({name : "Shankar",age : 28,
+ place : "coimbatore", address : 
+{street : "1st_street", colony :
+ "saibaba_colony", pincode : 641604}})
+
+*db.users.insertMany([{name : "manoj",age : 21},
+
+{name : "mouli",age : 24},
+{name : "Baskar",age : 20},
+{name : "Banu",age : 24}])
+
+*db.users.find().limit(2)
+
+*db.users.find().limit(3)
+
+*db.users.find().sort({age:1})
+
+*db.users.find().sort({age:-1})
+
+*db.users.find().sort({name:1})
+
+
+*db.users.find().skip(2).limit(2)
+[
+  { _id: ObjectId("63ec5c0f40035351639d8f65"), name: 'priya' },
+  {
+    _id: ObjectId("63ec5c9940035351639d8f66"),
+    name: 'Hari',
+    job: 'Hr',
+    salary: 25000,
+    company: 'SCM'
+  }
+]
+
+*db.users.find().sort({age :1})
+
+*db.users.find().sort({age :-1})
+
+*db.users.find({name : "Baskar"})
+
+*db.users.find({name :{$ne:"mouli"}})********$ne = not equal
+
+*db.users.find({name :{$eq:"mouli"}})*******$eq = equal to
+
+*db.users.find({age :{$gte:24}})*************$gte = greater then
+
+*db.users.find({age :{$lte:21}})************$lte = less then
+
+*db.users.find({age :{$exists:false}})********$exists:boolian = to check exist or not
+
+*db.users.updateOne({'_id': ObjectId("63ecd84f51a96e5820dedb6b")},{$set:{'city':'attur'}})
+
+*db.users.updateOne({'_id': ObjectId("63ecd84f51a96e5820dedb6b")},{$rename:{'city':'city1'}})
+
+*db.task.find({product_price:{$gte:400,$lt:600}})********** comparing b/w two data
+
+*db.task.find({product_price:{$ne:{$gte:400},$ne:{$lt:600}}})***************** comparing NOT b/w two data
+
+*********************************************************
+*db.task.find({product_price:{$gte:400,$lt:600}})********** comparing b/w two data
+
+*db.task.find({product_price:{$ne:{$gte:400},$ne:{$lt:600}}})***************** comparing NOT b/w two data
+
+*db.task.find({product_price:{$gt:500}}).limit(4)
+
+db.task.find({id:'10'})
+
+db.task.find({product_color:'indigo', product_price:492.00})
+
+db.task.find({product_material: 'Soft'})
+
+db.task.find().sort({product_name:1,product_material:1}) 
+
+db.task.find({},{product_name:1,product_material:1,_id:0})
+
+db.task.find({}).forEach((e)=>{db.task.deleteMany({_id:{$gt:e._id},product_price:e.product_price})})
+
+
+AGGEGRATION COMMANDS:
+
+*******************
+syntex:
+
+
+db.collectionName.aggregate(pipeline, { allowDiskUse : true })
+
+pipeline = [
+        { $match : { … } },
+        { $group : { … } },
+        { $sort : { … } }
+       ]
+******************
+
+$match: compare the data we given. 
+
+db.universities.aggregate([
+
+  { $match : { country : 'Spain', city : 'Salamanca' } }
+
+]).pretty()
+
+*******************************************
+
+$project: used to do this and to add any calculated fields that you need.
+
+ 1 - accending order,
+
+-1 - decending order,
+
+ 0 - dont show
+
+db.universities.aggregate([
+
+  { $project : { _id : 0, country : 1, city : 1, name : 1 } }
+
+]).pretty()
+**********************************************
+$group : we can perform all the aggregation or summary queries that we need,
+
+ such as finding counts, totals, averages or maximums.
+
+db.universities.aggregate([
+
+{ $group : { _id : '$name', totaldocs : { $sum : 1 } } }
+
+]).pretty()
+
+********************************************
+
+$unwind : seperate document and give .
+
+db.universities.aggregate([
+  { $match : { name : 'USAL' } },
+  { $unwind : '$students' }
+]).pretty()
+
+$lookup: two join two or more collection.
+
+db.universities.aggregate([
+  { $match : { name : 'USAL' } },
+
+
+  { $project : { _id : 0, name : 1 } },
+
+  { $lookup : {
+     
+      main syntex:
+        ******************
+      from : 'courses',
+
+      localField : 'name',
+
+      foreignField : 'university',
+
+      as : 'courses'
+        ******************
+
+  } }
+]).pretty()

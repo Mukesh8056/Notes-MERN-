@@ -1,0 +1,292 @@
+SELECT * FROM users;
+
+DELETE FROM users;
+
+INSERT INTO users (full_name, email_address, city, country, gender)
+values
+('Joey', 'john@gmail.com', 'Chennai','India', 'Male'),
+('Chandler', 'john@gmail.com', 'Chennai','India', 'Male'),
+('Monica', 'john@gmail.com', 'Chennai','India', 'Male')
+
+UPDATE users
+SET email_address = 'joey@gmail.com'
+WHERE id = 10
+
+
+CREATE TABLE `all_data_types` (
+  `varchar` VARCHAR( 20 ),
+    `tinyint` TINYINT  ,
+    `text` TEXT  ,
+    `date` DATE  ,
+    `smallint` SMALLINT  ,
+    `mediumint` MEDIUMINT  ,
+    `int` INT  ,
+    `bigint` BIGINT  ,
+    `float` FLOAT( 10, 2 )  ,
+    `double` DOUBLE  ,
+    `decimal` DECIMAL( 10, 2 )  ,
+    `datetime` DATETIME  ,
+    `timestamp` TIMESTAMP  ,
+    `time` TIME  ,
+    `year` YEAR  ,
+    `char` CHAR( 10 )  ,
+    `tinyblob` TINYBLOB  ,
+    `tinytext` TINYTEXT  ,
+    `blob` BLOB  ,
+    `mediumblob` MEDIUMBLOB  ,
+    `mediumtext` MEDIUMTEXT  ,
+    `longblob` LONGBLOB  ,
+    `longtext` LONGTEXT  ,
+    `enum` ENUM( '1', '2', '3' )  ,
+    `set` SET( '1', '2', '3' )  ,
+    `bool` BOOL  ,
+    `binary` BINARY( 20 )  ,
+    `varbinary` VARBINARY( 20 )
+);
+
+****************************************************************************************************
+
+CREATE DATABASE movies;
+
+CREATE DATABASE IF NOT EXISTS movies;
+
+CREATE TABLE 
+`TableName` (`fieldname` datatype [optional parameters])
+
+USE `movies`;
+CREATE TABLE `series` (
+`id` int(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+`name` varchar(100) NOT NULL,
+`genre` varchar(50) NOT NULL,
+`director` varchar(255) DEFAULT NULL
+);
+
+INSERT INTO series (name, genre, releasedon)
+
+VALUES
+('wed', 'ACTION', NOW())
+
+ALTER TABLE series modify column releasedon DATETIME;
+
+SELECT ALL genre FROM series;
+
+SELECT * FROM series order by id asc
+
+SELECT [DISTINCT|ALL ] { * | [fieldExpression [AS newName]} 
+FROM tableName [alias] 
+
+[WHERE condition][GROUP BY fieldName(s)]  
+
+[HAVING condition] ORDER BY fieldName(s)
+
+
+
+************************************************************************************
+
+Example : program:
+
+USE `myapp`;
+
+CREATE TABLE  `school`(
+ `id` int(10)  UNSIGNED PRIMARY KEY  NOT NULL AUTO_INCREMENT,
+ `student_name` VARCHAR(255) DEFAULT NULL,
+ `CLASS` VARCHAR(255) DEFAULT NULL,
+ `REGNUM` VARCHAR(255) DEFAULT NULL,
+ `currenttime` DATETIME  DEFAULT NULL
+)
+USE `myapp`;
+select * FROM `school`;
+
+INSERT INTO school (student_name,CLASS,REGNUM,currenttime)
+VALUES
+('mukesh','10TH','27377', NOW()),
+('mukesh1','10TH','27377', NOW()),
+('mukesh2','10TH','27377', NOW()),
+('mukesh2','10TH','27377', NOW());
+ALTER table `school` add column  `currenttime` DATETIME  DEFAULT NULL
+
+USE `myapp`;
+
+CREATE TABLE  `school1`(
+ `id` int(10)  UNSIGNED PRIMARY KEY  NOT NULL AUTO_INCREMENT,
+ `student_name` VARCHAR(255) DEFAULT NULL,
+ `CLASS` VARCHAR(255) DEFAULT NULL,
+ `REGNUM` VARCHAR(255) DEFAULT NULL,
+ `currenttime` DATETIME  DEFAULT NULL
+)
+USE `myapp`;
+select * FROM `school1`;
+
+INSERT INTO school1 SELECT * FROM  school;
+
+ INSERT INTO school1 SELECT  * FROM SCHOOL where id <> 1 ;
+ 
+GROUP BY && DISTINCT:
+ 
+SELECT student_name FROM school GROUP BY student_name;
+
+SELECT student_name, `currenttime`  FROM school GROUP BY student_name, `currenttime` ;
+
+SELECT student_name,CLASS from school  WHERE CLASS='10TH';
+
+SELECT distinct student_name from school;
+
+SELECT student_name FROM school ORDER BY student_name
+
+COUNT(*): --> IT IS AGGEGRATE FUNCTION
+          
+         --> AGGEGRATE FUNCTION CANNOT USED IN DISTINCT
+
+SELECT COUNT(*) FROM school;
+
+SELECT COUNT(*) FROM school GROUP BY student_name;
+
+SELECT student_name,COUNT(*) FROM school GROUP BY student_name;
+
+LIKE % :
+
+SELECT * FROM school1 WHERE  student_name LIKE 'M%';
+
+SELECT * FROM school1 WHERE regnum LIKE '%3%';
+
+SELECT * FROM school1 WHERE  student_name LIKE '%1';
+
+****COUNT(*) cannot use in distinct*****
+
+
+***********************************************************************************************
+PROGRAM 2:
+
+**************************************************************************************************
+
+USE`guvib41-crud`;
+CREATE TABLE `users` (
+`id` int(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+`full_name` varchar(255) DEFAULT NULL,
+`email_address` varchar(255) DEFAULT NULL,
+`city` varchar(255) DEFAULT NULL,
+`country` varchar(255) DEFAULT NULL
+)
+select * FROM users
+
+INSERT INTO users (full_name ,email_address ,city ,country)
+values
+('mukesh','mukesh@gmail','salem','india'),
+('SHIVANI','mukesh@gmail','salem','india'),
+('VENKATESAN','mukesh@gmail','salem','india'),
+('KALAI','mukesh@gmail','salem','india')
+
+select * FROM users WHERE full_name="mukesh"
+DELETE  * FROM users WHERE full_name='mukesh' 
+
+
+***************************************************************************************************
+
+
+USE `DB_Design`;
+CREATE TABLE `books` (
+`id` int(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+`name` varchar(100) NOT NULL,
+`category` varchar(50) NOT NULL,
+`month_released` int(10) DEFAULT NULL
+);
+
+USE `DB_Design`;
+CREATE TABLE `users` (
+`id` int(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+`name` varchar(100) NOT NULL,
+`gender` varchar(50) NOT NULL,
+`age` int(10) DEFAULT NULL
+);
+
+USE `DB_Design`;
+CREATE TABLE `user_book1` (
+`id` int(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+`name`VARCHAR (25) DEFAULT NULL,
+`user_id` int(10)  UNSIGNED,
+`book_rented`VARCHAR(25) DEFAULT NULL,
+`book_id` int(10) UNSIGNED NOT NULL,
+FOREIGN KEY (book_id) REFERENCES books(id)
+
+);
+USE `DB_Design`;
+ALTER TABLE`user_book1` add FOREIGN KEY (user_id) REFERENCES `users`(id);
+
+CREATE TABLE `user_book2` (
+`id` int(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+`name`VARCHAR (25) DEFAULT NULL,
+`user_id` int(10)  UNSIGNED,
+`book_rented`VARCHAR(25) DEFAULT NULL,
+`book_id` int(10) UNSIGNED NOT NULL,
+FOREIGN KEY (book_id) REFERENCES books(id),
+FOREIGN KEY (user_id) REFERENCES `users`(id)
+);
+SELECT * FROM user_book2;
+
+INSERT INTO books( name,category,month_released)
+VALUES
+('EARTH_ENVIRONMENT','geography','2010'),
+('EARTH_science','science','2000'),
+('game of throns','story','1990'),
+('Ramayanam','history','1200');
+USE `DB_Design`;
+SELECT * from  books ;
+
+INSERT INTO users (name,gender,age)
+VALUES
+('MUKESH','MALE','23'),
+('shivani','FEMALE','20'),
+('venkatesan','MALE','54'),
+('kalai','FEMALE','46');
+select * from users;
+
+INSERT INTO user_book2 (name,user_id,book_rented,book_id)
+VALUES
+('MUKESH venkat','20','EARTH_ENVIRONMENT','21'),
+('john','15','EARTH_science','22');
+
+select * from `user_book1`;
+
+SELECT * FROM user_book1 AS UB
+INNER JOIN books AS B
+ON B.id = UB.book_id
+WHERE b.category = 'geography';
+
+SELECT * FROM user_book1
+INNER JOIN books
+ON books.id = user_book1.book_id 
+
+left join:
+
+SELECT * FROM account
+LEFT JOIN custumer•
+account-custid
+
+right join:
+
+SELECT * FRON custoner
+right JOIN account
+account.custid custumer.custid;
+
+full join join:
+
+SELECT * FROM account
+LEFT JOIN custumer•
+account-custid
+
+UNION
+
+SELECT * FRON custoner
+right JOIN account
+account.custid custumer.custid;
+
+self join:
+
+SELECT sl.student_id, sl. name
+FROM student AS sl, student s2
+WHERE sl.student_id=s2.student_id and sl.course id<>s2.course_id ;
+
+
+
+
+
